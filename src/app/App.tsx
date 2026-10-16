@@ -1,12 +1,13 @@
+import { DexPage } from "../features/dex/DexPage";
+import { PromoPage } from "../features/promo/PromoPage";
 import { Link, useRoute } from "./router";
 
-// 土台のみ。図鑑(/)は画面担当A、/promo は画面担当Bが features/ 以下に実装して差し替える。
 export function App() {
   const { route, navigate } = useRoute();
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex h-16 items-center justify-between border-b border-border px-6">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-border px-6">
         <Link to="/" navigate={navigate} className="font-display text-xl font-bold">
           COOKIE DEX
         </Link>
@@ -19,11 +20,11 @@ export function App() {
           </Link>
         </nav>
       </header>
-      <main className="flex-1 p-6">
-        {route === "/" && <p data-testid="page-dex">図鑑（実装予定）</p>}
-        {route === "/promo" && <p data-testid="page-promo">宣伝ページ（実装予定）</p>}
+      <main className="min-h-0 flex-1">
+        {route === "/" && <DexPage navigate={navigate} />}
+        {route === "/promo" && <PromoPage navigate={navigate} />}
         {route === "notfound" && (
-          <div data-testid="page-notfound">
+          <div data-testid="page-notfound" className="p-6">
             <p>ページが見つかりません</p>
             <Link to="/" navigate={navigate} className="text-accent underline">
               図鑑へ戻る
