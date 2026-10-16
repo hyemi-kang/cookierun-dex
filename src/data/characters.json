@@ -1,0 +1,32 @@
+[
+  {
+    "id": "crk-gingerbrave",
+    "baseId": "gingerbrave",
+    "title": "kingdom",
+    "order": 1,
+    "names": { "ja": "勇敢なクッキー", "en": "GingerBrave", "ko": "용감한 쿠키" },
+    "rarity": "Common",
+    "summary": "（ダミー）取得スクリプトと手作業の要約で置き換える。",
+    "images": { "illustration": "/assets/crk/gingerbrave/illustration.webp" },
+    "motions": [],
+    "sourceUrl": "https://cookierun.wiki/w/GingerBrave/Kingdom",
+    "license": { "text": "CC BY-SA 4.0", "url": "https://creativecommons.org/licenses/by-sa/4.0/" },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T00:00:00Z"
+  },
+  {
+    "id": "crob-gingerbrave",
+    "baseId": "gingerbrave",
+    "title": "ovenbreak",
+    "order": 1,
+    "names": { "ja": "勇敢なクッキー", "en": "GingerBrave", "ko": "용감한 쿠키" },
+    "rarity": "Common",
+    "summary": "（ダミー）取得スクリプトと手作業の要約で置き換える。",
+    "images": { "illustration": "/assets/crob/gingerbrave/illustration.webp" },
+    "motions": [],
+    "sourceUrl": "https://cookierun.wiki/w/GingerBrave",
+    "license": { "text": "CC BY-SA 4.0", "url": "https://creativecommons.org/licenses/by-sa/4.0/" },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T00:00:00Z"
+  }
+]
