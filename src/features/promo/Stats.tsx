@@ -39,7 +39,7 @@ export function Stats({ reduced }: { reduced: boolean }) {
     <section
       ref={ref}
       aria-label="数字で見る"
-      className="flex flex-col items-center gap-10 px-4 py-24"
+      className="flex flex-col items-center gap-10 px-4 py-20"
       style={{
         background:
           "radial-gradient(60% 60% at 50% 50%, #7BD88F22, transparent 70%), linear-gradient(to bottom, #1a1210, #10281c 50%, #1a1210)",

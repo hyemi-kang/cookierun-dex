@@ -16,6 +16,12 @@ import { useVisible } from "./hooks";
 import { SplitText } from "./SplitText";
 import { CHARS, fallbackAction, gradeColor } from "./util";
 
+/** デモに使うキャラ。スキルと動作素材があるものを優先（なければ先頭） */
+const TEAM = (() => {
+  const t = CHARS.filter((c) => c.skill && c.motions.length > 0);
+  return t.length > 0 ? t : CHARS.slice(0, 1);
+})();
+
 const SCENES = [
   {
     no: "01",
@@ -41,7 +47,30 @@ const SCENES = [
 ] as const;
 
 const BTN =
-  "min-h-11 rounded-md bg-surface-2 px-4 text-sm font-bold text-text aria-pressed:bg-primary aria-pressed:text-on-primary";
+  "min-h-11 rounded-md bg-surface-2 px-4 text-base font-bold text-text aria-pressed:bg-primary aria-pressed:text-on-primary";
+
+function Picker({ idx, onPick }: { idx: number; onPick: (i: number) => void }) {
+  if (TEAM.length < 2) return null;
+  return (
+    <fieldset
+      aria-label="デモのキャラクターを選ぶ"
+      className="m-0 flex min-w-0 flex-wrap justify-center gap-2 border-0 p-0"
+    >
+      {TEAM.map((c, i) => (
+        <button
+          key={c.id}
+          type="button"
+          className={BTN}
+          aria-pressed={i === idx}
+          onClick={() => onPick(i)}
+        >
+          <span aria-hidden="true">{c.names.ja.replace(/クッキー$/, "")}</span>
+          <span className="sr-only">{c.names.ja}</span>
+        </button>
+      ))}
+    </fieldset>
+  );
+}
 
 /* ---------- (a) 回転する3Dカード ---------- */
 
@@ -49,10 +78,12 @@ function SpinCard({
   cookie,
   reduced,
   active,
+  picker,
 }: {
   cookie: Character;
   reduced: boolean;
   active: boolean;
+  picker: ReactNode;
 }) {
   const [spinning, setSpinning] = useState(!reduced);
   const rot = useMotionValue(0);
@@ -86,7 +117,7 @@ function SpinCard({
   return (
     <div className="flex flex-col items-center gap-5">
       <div
-        className="aspect-[5/7] h-[min(52svh,440px)]"
+        className="aspect-[5/7] h-[clamp(480px,62svh,620px)]"
         style={{ perspective: 1100 }}
         data-testid="showcase-card"
       >
@@ -102,7 +133,7 @@ function SpinCard({
               boxShadow: `0 0 48px ${color}77`,
             }}
           >
-            <div className="flex h-full w-full items-end justify-center p-4 pb-16">
+            <div className="flex h-full w-full items-end justify-center p-4 pb-20">
               <FallbackActor
                 imageSrc={cookie.images.illustration}
                 alt={cookie.names.ja}
@@ -116,8 +147,8 @@ function SpinCard({
               style={{ x: sheen }}
             />
             <div className="absolute inset-x-0 bottom-0 bg-bg/80 px-4 py-3 text-center">
-              <p className="text-lg font-bold">{cookie.names.ja}</p>
-              <p className="text-sm" style={{ color }}>
+              <p className="text-2xl font-bold">{cookie.names.ja}</p>
+              <p className="text-lg font-bold" style={{ color }}>
                 {cookie.rarity}
               </p>
             </div>
@@ -131,8 +162,8 @@ function SpinCard({
               boxShadow: `0 0 48px ${color}77`,
             }}
           >
-            <dl className="flex h-full flex-col justify-center gap-3 p-6 text-sm">
-              <p className="font-display text-xl font-bold tracking-widest" style={{ color }}>
+            <dl className="flex h-full flex-col justify-center gap-5 p-8 text-xl">
+              <p className="font-display text-3xl font-bold tracking-widest" style={{ color }}>
                 STATUS
               </p>
               {(
@@ -144,7 +175,7 @@ function SpinCard({
                   ["スキル", cookie.skill?.name ?? "—"],
                 ] as const
               ).map(([k, v]) => (
-                <div key={k} className="flex justify-between gap-3 border-b border-border pb-1">
+                <div key={k} className="flex justify-between gap-3 border-b border-border pb-2">
                   <dt className="text-text-muted">{k}</dt>
                   <dd className="font-bold">{v}</dd>
                 </div>
@@ -163,15 +194,25 @@ function SpinCard({
           裏返す
         </button>
       </div>
+      {picker}
     </div>
   );
 }
 
 /* ---------- (b) 動作の切り替え ---------- */
 
-function MotionDemo({ cookie, reduced }: { cookie: Character; reduced: boolean }) {
+function MotionDemo({
+  cookie,
+  reduced,
+  picker,
+}: {
+  cookie: Character;
+  reduced: boolean;
+  picker: ReactNode;
+}) {
   const motions = cookie.motions.slice(0, 6);
-  const [id, setId] = useState(() => (motions.find((m) => m.id === "run") ?? motions[0])?.id ?? "");
+  const [pickedId, setId] = useState("run");
+  const id = motions.some((m) => m.id === pickedId) ? pickedId : (motions[0]?.id ?? "");
   const [played, setPlayed] = useState(!reduced);
   const [failed, setFailed] = useState<string | null>(null);
   const cur = motions.find((m) => m.id === id);
@@ -179,13 +220,13 @@ function MotionDemo({ cookie, reduced }: { cookie: Character; reduced: boolean }
   return (
     <div className="flex flex-col items-center gap-5">
       <div
-        className="relative flex h-[min(46svh,400px)] w-[min(80vw,400px)] items-end justify-center overflow-hidden rounded-xl border border-border bg-black/30"
+        className="relative flex h-[clamp(380px,62svh,620px)] w-[min(90vw,680px)] items-end justify-center overflow-hidden rounded-2xl border border-border bg-black/30"
         data-testid="showcase-motion-stage"
       >
         <div
           aria-hidden="true"
           className="absolute inset-x-0 bottom-0 h-1/2"
-          style={{ background: "radial-gradient(60% 100% at 50% 100%, #7BD88F55, transparent)" }}
+          style={{ background: "radial-gradient(60% 100% at 50% 100%, #7BD88F77, transparent)" }}
         />
         {!cur || !src || failed === src ? (
           <FallbackActor
@@ -202,14 +243,14 @@ function MotionDemo({ cookie, reduced }: { cookie: Character; reduced: boolean }
             alt={`${cookie.names.ja}の「${cur.label}」`}
             draggable={false}
             onError={() => setFailed(src)}
-            className="relative h-full w-full object-contain p-4"
+            className="relative h-full w-full object-contain p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.12 }}
           />
         )}
       </div>
-      <div className="flex max-w-[560px] flex-wrap justify-center gap-2">
+      <div className="flex max-w-[680px] flex-wrap justify-center gap-3">
         {motions.map((m) => (
           <button
             key={m.id}
@@ -225,13 +266,22 @@ function MotionDemo({ cookie, reduced }: { cookie: Character; reduced: boolean }
           </button>
         ))}
       </div>
+      {picker}
     </div>
   );
 }
 
 /* ---------- (c) スキル演出 ---------- */
 
-function SkillDemo({ cookie, reduced }: { cookie: Character; reduced: boolean }) {
+function SkillDemo({
+  cookie,
+  reduced,
+  picker,
+}: {
+  cookie: Character;
+  reduced: boolean;
+  picker: ReactNode;
+}) {
   const [trigger, setTrigger] = useState(0);
   const [firing, setFiring] = useState(false);
   const color = cookie.theme?.accent ?? gradeColor(cookie.rarity);
@@ -248,7 +298,7 @@ function SkillDemo({ cookie, reduced }: { cookie: Character; reduced: boolean })
       <div className="flex flex-col items-center gap-5">
         <motion.div
           key={trigger}
-          className="h-[min(40svh,340px)] w-[min(70vw,340px)]"
+          className="h-[clamp(300px,50svh,500px)] w-[min(80vw,500px)]"
           initial={{ scale: 1 }}
           animate={trigger > 0 && !reduced ? { scale: [1, 1.14, 0.96, 1] } : undefined}
           transition={{ duration: 0.5, ease: "easeOut" }}
@@ -264,13 +314,20 @@ function SkillDemo({ cookie, reduced }: { cookie: Character; reduced: boolean })
           type="button"
           onClick={fire}
           data-testid="showcase-skill-btn"
-          className="min-h-12 rounded-md bg-primary px-8 text-lg font-bold text-on-primary"
+          className="min-h-14 rounded-full bg-primary px-12 text-2xl font-bold text-on-primary shadow-[0_0_32px_rgb(255_138_61/0.6)]"
         >
           スキル発動
         </button>
-        <p className="max-w-[360px] text-center text-sm text-text-muted">
-          {cookie.skill ? `${cookie.skill.name}: ${cookie.skill.summary}` : "スキル情報なし"}
-        </p>
+        <div className="max-w-[560px] rounded-xl border border-border bg-bg/80 px-6 py-4 text-center">
+          <p
+            className="font-display text-2xl font-bold"
+            style={{ color: gradeColor(cookie.rarity) }}
+          >
+            {cookie.skill?.name ?? "スキル"}
+          </p>
+          <p className="mt-1 text-base text-text">{cookie.skill?.summary ?? "スキル情報なし"}</p>
+        </div>
+        {picker}
       </div>
       <SkillFx
         trigger={trigger}
@@ -285,18 +342,23 @@ function SkillDemo({ cookie, reduced }: { cookie: Character; reduced: boolean })
 
 function SceneBody({
   i,
-  cookie,
+  idx,
+  onPick,
   reduced,
   active,
 }: {
   i: number;
-  cookie: Character;
+  idx: number;
+  onPick: (i: number) => void;
   reduced: boolean;
   active: boolean;
 }): ReactNode {
-  if (i === 0) return <SpinCard cookie={cookie} reduced={reduced} active={active} />;
-  if (i === 1) return <MotionDemo cookie={cookie} reduced={reduced} />;
-  return <SkillDemo cookie={cookie} reduced={reduced} />;
+  const cookie = TEAM[idx] ?? (CHARS[0] as Character);
+  const picker = <Picker idx={idx} onPick={onPick} />;
+  if (i === 0)
+    return <SpinCard cookie={cookie} reduced={reduced} active={active} picker={picker} />;
+  if (i === 1) return <MotionDemo cookie={cookie} reduced={reduced} picker={picker} />;
+  return <SkillDemo cookie={cookie} reduced={reduced} picker={picker} />;
 }
 
 function SceneText({ i, active, reduced }: { i: number; active: boolean; reduced: boolean }) {
@@ -326,7 +388,8 @@ function SceneText({ i, active, reduced }: { i: number; active: boolean; reduced
 }
 
 /** 動きを減らす設定: 3場面を縦に並べた静的な構成 */
-function StaticShowcase({ cookie }: { cookie: Character }) {
+function StaticShowcase() {
+  const [idx, setIdx] = useState(0);
   const ref = useRef<HTMLElement>(null);
   useSectionAccent(ref, "#FF6FA8");
   return (
@@ -338,14 +401,15 @@ function StaticShowcase({ cookie }: { cookie: Character }) {
           style={{ background: `linear-gradient(to bottom, ${s.from}, var(--color-bg))` }}
         >
           <SceneText i={i} active reduced />
-          <SceneBody i={i} cookie={cookie} reduced active={false} />
+          <SceneBody i={i} idx={idx} onPick={setIdx} reduced active={false} />
         </div>
       ))}
     </section>
   );
 }
 
-function ScrollShowcase({ cookie }: { cookie: Character }) {
+function ScrollShowcase() {
+  const [idx, setIdx] = useState(0);
   const ref = useRef<HTMLElement>(null);
   const visible = useVisible(ref);
   const setAccent = useContext(AccentContext);
@@ -381,10 +445,10 @@ function ScrollShowcase({ cookie }: { cookie: Character }) {
         {SCENES.map((s, i) => (
           <motion.div
             key={s.no}
-            className="absolute inset-0 flex items-center justify-center gap-10 px-8 max-md:flex-col max-md:gap-4 max-md:px-4"
+            className="absolute inset-0 grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] items-center gap-8 px-[5vw] max-md:flex max-md:flex-col max-md:justify-center max-md:gap-4 max-md:px-4"
             style={{
               zIndex: i,
-              background: `radial-gradient(70% 70% at 70% 50%, ${s.accent}33, transparent 70%), linear-gradient(to bottom, ${s.from}, #1a1210)`,
+              background: `radial-gradient(60% 80% at 68% 55%, ${s.accent}55, transparent 70%), linear-gradient(to bottom, ${s.from}, #1a1210)`,
             }}
             initial={false}
             animate={{
@@ -395,7 +459,13 @@ function ScrollShowcase({ cookie }: { cookie: Character }) {
             aria-hidden={scene !== i}
           >
             <SceneText i={i} active={scene === i} reduced={false} />
-            <SceneBody i={i} cookie={cookie} reduced={false} active={scene === i && visible} />
+            <SceneBody
+              i={i}
+              idx={idx}
+              onPick={setIdx}
+              reduced={false}
+              active={scene === i && visible}
+            />
           </motion.div>
         ))}
         <div
@@ -419,7 +489,6 @@ function ScrollShowcase({ cookie }: { cookie: Character }) {
 }
 
 export function Showcase({ reduced }: { reduced: boolean }) {
-  const cookie = CHARS[0];
-  if (!cookie) return null;
-  return reduced ? <StaticShowcase cookie={cookie} /> : <ScrollShowcase cookie={cookie} />;
+  if (TEAM.length === 0) return null;
+  return reduced ? <StaticShowcase /> : <ScrollShowcase />;
 }

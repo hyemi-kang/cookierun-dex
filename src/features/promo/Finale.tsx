@@ -123,7 +123,7 @@ function ScrollFinale({ navigate }: { navigate: (to: string) => void }) {
           <ParticleCanvas ref={particles} maxParticles={160} />
         </div>
 
-        <div className="absolute inset-x-0 top-[12svh] z-10 flex flex-col items-center gap-8 px-4 text-center">
+        <div className="absolute inset-x-0 top-[16svh] z-10 flex flex-col items-center gap-8 px-4 text-center">
           <SectionLabel no="05" en="START" />
           <h2
             id="finale-heading"
