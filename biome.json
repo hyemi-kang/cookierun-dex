@@ -7,6 +7,7 @@
       "!dist",
       "!public/assets",
       "!public/promo",
+      "!.asset-cache",
       "!playwright-report",
       "!test-results",
       "!package-lock.json"

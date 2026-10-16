@@ -14,7 +14,7 @@
 | パーティクル | 自前 Canvas 2D | 依存ゼロ |
 | 検索 | `includes` + 正規化（NFKC、小文字化、カタカナ→ひらがな） | 10件規模なら fuse.js は不要 |
 | ルーティング | 自前の小さなルーター（`/`、`/promo`、404） | 2画面だけなので依存を増やさない |
-| 素材変換 | sharp 0.35.5（devDependency） | GIF → アニメ WebP。1コマ目の静止画 `*_still.webp` も出す |
+| 素材変換 | sharp 0.35.5（devDependency） | GIF → アニメ WebP。1コマ目の静止画 `<motionId>.still.webp` も出す |
 | テスト | vitest 5.0.3、jsdom 30.1.1、@testing-library/react 16.3.2、@testing-library/dom 10.4.2、@playwright/test 1.63.0 | |
 | lint/format | @biomejs/biome 2.5.15 | 1つの道具で済む |
 | フォント | Google Fonts（Fredoka、M PLUS Rounded 1c、Jua、Noto Sans JP/KR） | |
