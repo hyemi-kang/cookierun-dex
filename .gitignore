@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.log
+.env
+.env.local
+
+# Devsisters の著作物（画像・動作素材・動画）は配布しない
+public/assets/
+public/promo/
+.asset-cache/
