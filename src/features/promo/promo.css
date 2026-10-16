@@ -1,0 +1,171 @@
+/* 宣伝ページ専用のスタイル。色は tokens.css のトークンを使う。transform / opacity だけを動かす。 */
+.promo-root {
+  --promo-accent: var(--color-primary);
+  position: relative;
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: clip;
+}
+
+/* 画面外では止める（祖先または自身に data-running="false"） */
+[data-running="false"] .promo-anim,
+.promo-anim[data-running="false"] {
+  animation-play-state: paused;
+}
+
+@keyframes promo-drift {
+  from {
+    transform: translate3d(-4vw, 0, 0);
+  }
+  to {
+    transform: translate3d(4vw, 0, 0);
+  }
+}
+@keyframes promo-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes promo-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+@keyframes promo-hop {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+@keyframes promo-strip {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--period) * -1), 0, 0);
+  }
+}
+@keyframes promo-marquee-l {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes promo-marquee-r {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes promo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes promo-hint {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate3d(0, 8px, 0);
+    opacity: 1;
+  }
+}
+
+.promo-drift {
+  animation: promo-drift 28s ease-in-out infinite alternate;
+}
+.promo-pulse {
+  animation: promo-pulse 6s ease-in-out infinite;
+}
+.promo-bob {
+  animation: promo-bob 4.2s ease-in-out infinite;
+}
+.promo-hop {
+  animation: promo-hop 0.34s ease-in-out infinite;
+}
+.promo-strip {
+  animation: promo-strip var(--dur, 6s) linear infinite;
+}
+.promo-spin {
+  animation: promo-spin 9s linear infinite;
+}
+.promo-hint {
+  animation: promo-hint 2.2s ease-in-out infinite;
+}
+
+.promo-marquee-track {
+  display: flex;
+  width: max-content;
+}
+.promo-marquee-track[data-dir="l"] {
+  animation: promo-marquee-l 70s linear infinite;
+}
+.promo-marquee-track[data-dir="r"] {
+  animation: promo-marquee-r 80s linear infinite;
+}
+.promo-marquee-row[data-running="false"] .promo-marquee-track,
+.promo-marquee-row:hover .promo-marquee-track,
+.promo-marquee-row:focus-within .promo-marquee-track {
+  animation-play-state: paused;
+}
+
+.promo-thumb {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.promo-thumb:hover,
+.promo-thumb:focus-visible {
+  transform: scale(1.1) translateY(-4px);
+}
+
+/* JS 側でも reduced を見ているが、OS 設定でも止める保険 */
+@media (prefers-reduced-motion: reduce) {
+  .promo-drift,
+  .promo-pulse,
+  .promo-bob,
+  .promo-hop,
+  .promo-strip,
+  .promo-spin,
+  .promo-hint,
+  .promo-marquee-track[data-dir] {
+    animation: none;
+  }
+  .promo-thumb {
+    transition: none;
+  }
+}
+
+.promo-card-holo {
+  background:
+    radial-gradient(
+      circle at var(--hx, 50%) var(--hy, 30%),
+      rgb(255 255 255 / 0.55),
+      transparent 45%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgb(255 111 168 / 0.25) 40%,
+      rgb(255 200 69 / 0.25) 55%,
+      rgb(123 216 143 / 0.2) 70%,
+      transparent 85%
+    );
+  mix-blend-mode: screen;
+}
