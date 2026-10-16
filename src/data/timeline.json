@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "year": 2009,
+    "title": "OvenBreak 公開",
+    "summary": "シリーズの原点となる横スクロールのアクションゲームが、韓国で最初に公開された。",
+    "sourceUrl": "https://cookierun.wiki/w/OvenBreak"
+  },
+  {
+    "year": 2012,
+    "title": "OvenBreak 2 公開",
+    "summary": "続編が12月に公開された。勇敢なクッキーたちのシリーズが広がっていく。",
+    "sourceUrl": "https://cookierun.wiki/w/OvenBreak_2"
+  },
+  {
+    "year": 2016,
+    "title": "クッキーラン: オーブンブレイク",
+    "summary": "スマホ向けのランゲームとして世界展開された。この図鑑のオーブンブレイクのクッキーが活躍する作品。",
+    "sourceUrl": "https://cookierun.wiki/w/Cookie_Run:_OvenBreak"
+  },
+  {
+    "year": 2021,
+    "title": "クッキーラン: キングダム",
+    "summary": "王国を育てながら戦うゲームとして、グローバル版が1月に公開された。",
+    "sourceUrl": "https://cookierun.wiki/w/Cookie_Run:_Kingdom"
+  },
+  {
+    "year": 2024,
+    "title": "クッキーラン: タワー・オブ・アドベンチャー",
+    "summary": "3Dのアクション RPG として6月に公開された。",
+    "sourceUrl": "https://cookierun.wiki/w/Cookie_Run:_Tower_of_Adventures"
+  }
+]

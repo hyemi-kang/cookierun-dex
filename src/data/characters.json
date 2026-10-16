@@ -4,29 +4,733 @@
     "baseId": "gingerbrave",
     "title": "kingdom",
     "order": 1,
-    "names": { "ja": "勇敢なクッキー", "en": "GingerBrave", "ko": "용감한 쿠키" },
+    "names": {
+      "ja": "勇敢なクッキー",
+      "en": "GingerBrave",
+      "ko": "용감한 쿠키",
+      "aliases": ["GingerBrave", "ジンジャーブレイブ"]
+    },
     "rarity": "Common",
-    "summary": "（ダミー）取得スクリプトと手作業の要約で置き換える。",
-    "images": { "illustration": "/assets/crk/gingerbrave/illustration.webp" },
-    "motions": [],
+    "position": "Front",
+    "role": "Charge",
+    "releaseDate": "2021-01-21",
+    "summary": "クッキーランシリーズおなじみの主人公。キングダムでは等級が最も低いコモンの突撃タイプ。",
+    "images": {
+      "illustration": "/assets/crk/gingerbrave/illustration.webp",
+      "thumbnail": "/assets/crk/gingerbrave/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/gingerbrave/idle.webp",
+        "still": "/assets/crk/gingerbrave/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/gingerbrave/battle_idle.webp",
+        "still": "/assets/crk/gingerbrave/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/gingerbrave/run.webp",
+        "still": "/assets/crk/gingerbrave/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/gingerbrave/skill1.webp",
+        "still": "/assets/crk/gingerbrave/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/gingerbrave/joy.webp",
+        "still": "/assets/crk/gingerbrave/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#e8913a"
+    },
     "sourceUrl": "https://cookierun.wiki/w/GingerBrave/Kingdom",
-    "license": { "text": "CC BY-SA 4.0", "url": "https://creativecommons.org/licenses/by-sa/4.0/" },
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
     "imageCredit": "© Devsisters",
-    "fetchedAt": "2026-10-16T00:00:00Z"
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crk-strawberry",
+    "title": "kingdom",
+    "order": 2,
+    "names": {
+      "ja": "イチゴクッキー",
+      "en": "Strawberry Cookie",
+      "aliases": ["Strawberry Cookie", "ストロベリークッキー", "いちごクッキー"]
+    },
+    "rarity": "Common",
+    "position": "Front",
+    "role": "Defense",
+    "releaseDate": "2021-01-21",
+    "summary": "勇敢なクッキーの仲間として各作品に登場する女の子のクッキー。キングダムではコモンの防御タイプ。",
+    "images": {
+      "illustration": "/assets/crk/strawberry/illustration.webp",
+      "thumbnail": "/assets/crk/strawberry/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/strawberry/idle.webp",
+        "still": "/assets/crk/strawberry/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/strawberry/battle_idle.webp",
+        "still": "/assets/crk/strawberry/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/strawberry/run.webp",
+        "still": "/assets/crk/strawberry/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/strawberry/skill1.webp",
+        "still": "/assets/crk/strawberry/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "skill2",
+        "label": "スキル2",
+        "src": "/assets/crk/strawberry/skill2.webp",
+        "still": "/assets/crk/strawberry/skill2.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/strawberry/joy.webp",
+        "still": "/assets/crk/strawberry/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#e0475f"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Strawberry_Cookie/Kingdom",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crk-espresso",
+    "title": "kingdom",
+    "order": 3,
+    "names": {
+      "ja": "エスプレッソクッキー",
+      "en": "Espresso Cookie",
+      "aliases": ["Espresso Cookie"]
+    },
+    "rarity": "Epic",
+    "position": "Middle",
+    "role": "Magic",
+    "releaseDate": "2021-01-21",
+    "summary": "コーヒーをモチーフにした魔法タイプのクッキー。中衛に立ち、範囲攻撃で戦う。",
+    "skill": {
+      "name": "Grinding",
+      "summary": "敵を渦に巻き込んで引き寄せながら継続ダメージを与え、最後の一撃で打ち上げる。使用中は防御とデバフ耐性も上がる。"
+    },
+    "images": {
+      "illustration": "/assets/crk/espresso/illustration.webp",
+      "thumbnail": "/assets/crk/espresso/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/espresso/idle.webp",
+        "still": "/assets/crk/espresso/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/espresso/battle_idle.webp",
+        "still": "/assets/crk/espresso/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/espresso/run.webp",
+        "still": "/assets/crk/espresso/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/espresso/skill1.webp",
+        "still": "/assets/crk/espresso/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "skill2",
+        "label": "スキル2",
+        "src": "/assets/crk/espresso/skill2.webp",
+        "still": "/assets/crk/espresso/skill2.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/espresso/joy.webp",
+        "still": "/assets/crk/espresso/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#8b5a3c"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Espresso_Cookie/Kingdom",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crk-pure-vanilla",
+    "title": "kingdom",
+    "order": 4,
+    "names": {
+      "ja": "ピュアバニラクッキー",
+      "en": "Pure Vanilla Cookie",
+      "ko": "퓨어바닐라 쿠키",
+      "aliases": ["Pure Vanilla Cookie", "ピュアバニラ"]
+    },
+    "rarity": "Ancient",
+    "position": "Rear",
+    "role": "Healing",
+    "releaseDate": "2021-04-08",
+    "summary": "後衛で味方を支える回復タイプのエンシェント級クッキー。",
+    "skill": {
+      "name": "Love & Peace",
+      "summary": "杖の光で味方のHPを回復し、シールドも与える。シールドが張れない相手には継続回復をかける。"
+    },
+    "images": {
+      "illustration": "/assets/crk/pure-vanilla/illustration.webp",
+      "thumbnail": "/assets/crk/pure-vanilla/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/pure-vanilla/idle.webp",
+        "still": "/assets/crk/pure-vanilla/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/pure-vanilla/battle_idle.webp",
+        "still": "/assets/crk/pure-vanilla/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/pure-vanilla/run.webp",
+        "still": "/assets/crk/pure-vanilla/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/pure-vanilla/skill1.webp",
+        "still": "/assets/crk/pure-vanilla/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "skill2",
+        "label": "スキル2",
+        "src": "/assets/crk/pure-vanilla/skill2.webp",
+        "still": "/assets/crk/pure-vanilla/skill2.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/pure-vanilla/joy.webp",
+        "still": "/assets/crk/pure-vanilla/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#f2d68a"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Pure_Vanilla_Cookie/Kingdom",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crk-hollyberry",
+    "title": "kingdom",
+    "order": 5,
+    "names": {
+      "ja": "ホーリーベリークッキー",
+      "en": "Hollyberry Cookie",
+      "aliases": ["Hollyberry Cookie", "ホリーベリークッキー", "ホーリーベリー"]
+    },
+    "rarity": "Ancient",
+    "position": "Front",
+    "role": "Defense",
+    "releaseDate": "2021-09-02",
+    "summary": "前衛で仲間を守るエンシェント級の防御タイプ。",
+    "skill": {
+      "name": "Oath on the Shield",
+      "summary": "雄叫びとともに突進し、味方のダメージを肩代わりする盾になる。受けた被害に応じて回復の実が育つ。"
+    },
+    "images": {
+      "illustration": "/assets/crk/hollyberry/illustration.webp",
+      "thumbnail": "/assets/crk/hollyberry/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/hollyberry/idle.webp",
+        "still": "/assets/crk/hollyberry/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/hollyberry/battle_idle.webp",
+        "still": "/assets/crk/hollyberry/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/hollyberry/run.webp",
+        "still": "/assets/crk/hollyberry/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/hollyberry/skill1.webp",
+        "still": "/assets/crk/hollyberry/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "skill2",
+        "label": "スキル2",
+        "src": "/assets/crk/hollyberry/skill2.webp",
+        "still": "/assets/crk/hollyberry/skill2.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/hollyberry/joy.webp",
+        "still": "/assets/crk/hollyberry/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#c0392b"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Hollyberry_Cookie/Kingdom",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crk-sea-fairy",
+    "title": "kingdom",
+    "order": 6,
+    "names": {
+      "ja": "海の妖精クッキー",
+      "en": "Sea Fairy Cookie",
+      "ko": "바다요정 쿠키",
+      "aliases": ["Sea Fairy Cookie"]
+    },
+    "rarity": "Legendary",
+    "position": "Middle",
+    "role": "Bomber",
+    "releaseDate": "2021-06-22",
+    "summary": "海の妖精をモチーフにした中衛のボマータイプ。レジェンダリー級。",
+    "skill": {
+      "name": "Soaring Compassion",
+      "summary": "水流で近くの敵をスタンさせ、満月の形の水柱を立てて大ダメージを与える。"
+    },
+    "images": {
+      "illustration": "/assets/crk/sea-fairy/illustration.webp",
+      "thumbnail": "/assets/crk/sea-fairy/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "idle",
+        "label": "待機",
+        "src": "/assets/crk/sea-fairy/idle.webp",
+        "still": "/assets/crk/sea-fairy/idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "battle_idle",
+        "label": "バトル待機",
+        "src": "/assets/crk/sea-fairy/battle_idle.webp",
+        "still": "/assets/crk/sea-fairy/battle_idle.still.webp",
+        "loop": true
+      },
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crk/sea-fairy/run.webp",
+        "still": "/assets/crk/sea-fairy/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "skill1",
+        "label": "スキル1",
+        "src": "/assets/crk/sea-fairy/skill1.webp",
+        "still": "/assets/crk/sea-fairy/skill1.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "skill2",
+        "label": "スキル2",
+        "src": "/assets/crk/sea-fairy/skill2.webp",
+        "still": "/assets/crk/sea-fairy/skill2.still.webp",
+        "loop": false,
+        "isSkill": true
+      },
+      {
+        "id": "joy",
+        "label": "喜び",
+        "src": "/assets/crk/sea-fairy/joy.webp",
+        "still": "/assets/crk/sea-fairy/joy.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#3aa6d9"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Sea_Fairy_Cookie/Kingdom",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
   },
   {
     "id": "crob-gingerbrave",
     "baseId": "gingerbrave",
     "title": "ovenbreak",
     "order": 1,
-    "names": { "ja": "勇敢なクッキー", "en": "GingerBrave", "ko": "용감한 쿠키" },
+    "names": {
+      "ja": "勇敢なクッキー",
+      "en": "GingerBrave",
+      "ko": "용감한 쿠키",
+      "aliases": ["GingerBrave", "ジンジャーブレイブ"]
+    },
     "rarity": "Common",
-    "summary": "（ダミー）取得スクリプトと手作業の要約で置き換える。",
-    "images": { "illustration": "/assets/crob/gingerbrave/illustration.webp" },
-    "motions": [],
-    "sourceUrl": "https://cookierun.wiki/w/GingerBrave",
-    "license": { "text": "CC BY-SA 4.0", "url": "https://creativecommons.org/licenses/by-sa/4.0/" },
+    "releaseDate": "2016-09-27",
+    "summary": "オーブンブレイクの主人公。最初から使えるコモン等級の走者。",
+    "images": {
+      "illustration": "/assets/crob/gingerbrave/illustration.webp",
+      "thumbnail": "/assets/crob/gingerbrave/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crob/gingerbrave/run.webp",
+        "still": "/assets/crob/gingerbrave/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "jump",
+        "label": "ジャンプ",
+        "src": "/assets/crob/gingerbrave/jump.webp",
+        "still": "/assets/crob/gingerbrave/jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "double_jump",
+        "label": "二段ジャンプ",
+        "src": "/assets/crob/gingerbrave/double_jump.webp",
+        "still": "/assets/crob/gingerbrave/double_jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "slide",
+        "label": "スライド",
+        "src": "/assets/crob/gingerbrave/slide.webp",
+        "still": "/assets/crob/gingerbrave/slide.still.webp",
+        "loop": false
+      },
+      {
+        "id": "run_fast",
+        "label": "全力で走る",
+        "src": "/assets/crob/gingerbrave/run_fast.webp",
+        "still": "/assets/crob/gingerbrave/run_fast.still.webp",
+        "loop": true
+      }
+    ],
+    "theme": {
+      "accent": "#e8913a"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/GingerBrave/OvenBreak",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
     "imageCredit": "© Devsisters",
-    "fetchedAt": "2026-10-16T00:00:00Z"
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crob-knight",
+    "title": "ovenbreak",
+    "order": 2,
+    "names": {
+      "ja": "ナイトクッキー",
+      "en": "Knight Cookie",
+      "aliases": ["Knight Cookie", "騎士クッキー"]
+    },
+    "rarity": "Rare",
+    "releaseDate": "2016-12-01",
+    "summary": "騎士をモチーフにしたレア等級の走者。",
+    "images": {
+      "illustration": "/assets/crob/knight/illustration.webp",
+      "thumbnail": "/assets/crob/knight/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crob/knight/run.webp",
+        "still": "/assets/crob/knight/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "jump",
+        "label": "ジャンプ",
+        "src": "/assets/crob/knight/jump.webp",
+        "still": "/assets/crob/knight/jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "double_jump",
+        "label": "二段ジャンプ",
+        "src": "/assets/crob/knight/double_jump.webp",
+        "still": "/assets/crob/knight/double_jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "slide",
+        "label": "スライド",
+        "src": "/assets/crob/knight/slide.webp",
+        "still": "/assets/crob/knight/slide.still.webp",
+        "loop": false
+      },
+      {
+        "id": "run_fast",
+        "label": "全力で走る",
+        "src": "/assets/crob/knight/run_fast.webp",
+        "still": "/assets/crob/knight/run_fast.still.webp",
+        "loop": true
+      },
+      {
+        "id": "landing",
+        "label": "着地",
+        "src": "/assets/crob/knight/landing.webp",
+        "still": "/assets/crob/knight/landing.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#6c7a89"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Knight_Cookie/OvenBreak",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crob-princess",
+    "title": "ovenbreak",
+    "order": 3,
+    "names": {
+      "ja": "プリンセスクッキー",
+      "en": "Princess Cookie",
+      "aliases": ["Princess Cookie", "お姫様クッキー"]
+    },
+    "rarity": "Rare",
+    "releaseDate": "2016-12-01",
+    "summary": "お姫様をモチーフにしたレア等級の走者。",
+    "images": {
+      "illustration": "/assets/crob/princess/illustration.webp",
+      "thumbnail": "/assets/crob/princess/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crob/princess/run.webp",
+        "still": "/assets/crob/princess/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "jump",
+        "label": "ジャンプ",
+        "src": "/assets/crob/princess/jump.webp",
+        "still": "/assets/crob/princess/jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "double_jump",
+        "label": "二段ジャンプ",
+        "src": "/assets/crob/princess/double_jump.webp",
+        "still": "/assets/crob/princess/double_jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "slide",
+        "label": "スライド",
+        "src": "/assets/crob/princess/slide.webp",
+        "still": "/assets/crob/princess/slide.still.webp",
+        "loop": false
+      },
+      {
+        "id": "run_fast",
+        "label": "全力で走る",
+        "src": "/assets/crob/princess/run_fast.webp",
+        "still": "/assets/crob/princess/run_fast.still.webp",
+        "loop": true
+      },
+      {
+        "id": "landing",
+        "label": "着地",
+        "src": "/assets/crob/princess/landing.webp",
+        "still": "/assets/crob/princess/landing.still.webp",
+        "loop": false
+      }
+    ],
+    "theme": {
+      "accent": "#e68ab8"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Princess_Cookie/OvenBreak",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
+  },
+  {
+    "id": "crob-red-velvet",
+    "title": "ovenbreak",
+    "order": 4,
+    "names": {
+      "ja": "レッドベルベットクッキー",
+      "en": "Red Velvet Cookie",
+      "aliases": ["Red Velvet Cookie"]
+    },
+    "rarity": "Epic",
+    "releaseDate": "2026-04-16",
+    "summary": "レッドベルベットケーキをモチーフにした、エピック等級の走者。",
+    "images": {
+      "illustration": "/assets/crob/red-velvet/illustration.webp",
+      "thumbnail": "/assets/crob/red-velvet/thumb.webp"
+    },
+    "motions": [
+      {
+        "id": "run",
+        "label": "走る",
+        "src": "/assets/crob/red-velvet/run.webp",
+        "still": "/assets/crob/red-velvet/run.still.webp",
+        "loop": true
+      },
+      {
+        "id": "jump",
+        "label": "ジャンプ",
+        "src": "/assets/crob/red-velvet/jump.webp",
+        "still": "/assets/crob/red-velvet/jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "double_jump",
+        "label": "二段ジャンプ",
+        "src": "/assets/crob/red-velvet/double_jump.webp",
+        "still": "/assets/crob/red-velvet/double_jump.still.webp",
+        "loop": false
+      },
+      {
+        "id": "slide",
+        "label": "スライド",
+        "src": "/assets/crob/red-velvet/slide.webp",
+        "still": "/assets/crob/red-velvet/slide.still.webp",
+        "loop": false
+      },
+      {
+        "id": "run_fast",
+        "label": "全力で走る",
+        "src": "/assets/crob/red-velvet/run_fast.webp",
+        "still": "/assets/crob/red-velvet/run_fast.still.webp",
+        "loop": true
+      }
+    ],
+    "theme": {
+      "accent": "#a31f34"
+    },
+    "sourceUrl": "https://cookierun.wiki/w/Red_Velvet_Cookie/OvenBreak",
+    "license": {
+      "text": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "imageCredit": "© Devsisters",
+    "fetchedAt": "2026-10-16T02:39:34.377Z"
   }
 ]
