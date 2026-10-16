@@ -33,13 +33,21 @@ function toggled(set: ReadonlySet<string>, v: string): ReadonlySet<string> {
 }
 
 // 画面 `/`: 左に一覧、中央にステージ、右に説明（docs/UI.md 2.2）
-export function DexPage({ navigate: _navigate }: { navigate: (to: string) => void }) {
+export function DexPage(_props: { navigate: (to: string) => void }) {
   const reduced = useReducedMotion();
   const { game, selectedId, view, setGame, setSelectedId, setView } = useDexUrl();
 
   const [query, setQuery] = useState("");
   const [grades, setGrades] = useState<ReadonlySet<string>>(EMPTY);
   const [roles, setRoles] = useState<ReadonlySet<string>>(EMPTY);
+  // 戻る/進むなどで game が変わったときも、等級・役割の絞り込みは外す（検索語は残す: AC-13）
+  const [prevGame, setPrevGame] = useState(game);
+  if (prevGame !== game) {
+    setPrevGame(game);
+    setGrades(EMPTY);
+    setRoles(EMPTY);
+  }
+
   const [skillTrigger, setSkillTrigger] = useState(0);
   const [skillBusy, setSkillBusy] = useState(false);
   const [toast, setToast] = useState<string | null>(null);

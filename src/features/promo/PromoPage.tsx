@@ -1,5 +1,5 @@
-import { useReducedMotion } from "motion/react";
 import timeline from "../../data/timeline.json";
+import { useReducedMotion } from "../../lib/useMotionPreference";
 import type { TimelineItem } from "../../types/timeline";
 import { CtaSection } from "./CtaSection";
 import { PromoHero } from "./PromoHero";
@@ -23,7 +23,7 @@ function sanitize(raw: unknown): TimelineItem[] {
 const ITEMS = sanitize(timeline);
 
 export function PromoPage({ navigate }: { navigate: (to: string) => void }) {
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useReducedMotion();
 
   return (
     <div data-testid="page-promo">

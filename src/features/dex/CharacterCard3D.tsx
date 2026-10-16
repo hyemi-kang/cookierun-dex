@@ -136,6 +136,9 @@ export function CharacterCard3D({ character, reduced, flipSignal, resetSignal }:
   const floatY = useMotionValue(0);
   const floatRot = useMotionValue(0);
   const fade = useMotionValue(1);
+  useEffect(() => {
+    sheenOpacity.set(reduced ? 0.2 : 0);
+  }, [reduced, sheenOpacity]);
   const totalY = useTransform([rotateY, tiltY], ([a, b]: number[]) => a + b);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -188,9 +191,19 @@ export function CharacterCard3D({ character, reduced, flipSignal, resetSignal }:
     };
   }, [idle, floatY, floatRot]);
 
+  // reduced の裏返し（フェード → 角度の入れ替え）の進行中の状態
+  const fadeCtl = useRef<AnimationPlaybackControls | null>(null);
+  const pendingFlip = useRef<number | null>(null);
+  const cancelFade = () => {
+    fadeCtl.current?.stop();
+    fadeCtl.current = null;
+    pendingFlip.current = null;
+    fade.set(1);
+  };
   const stopSpin = () => {
     spin.current?.stop();
     spin.current = null;
+    cancelFade();
   };
 
   const reset = () => {
@@ -210,14 +223,23 @@ export function CharacterCard3D({ character, reduced, flipSignal, resetSignal }:
   };
 
   const flip = () => {
-    stopSpin();
+    spin.current?.stop();
+    spin.current = null;
     poke();
-    const target = Math.floor(rotateY.get() / 180) * 180 + 180;
+    // 最寄りの面を基準に反対の面へ。フェード中の連打は予定の角度から数える
+    const base = pendingFlip.current ?? rotateY.get();
+    const target = Math.round(base / 180) * 180 + 180;
     if (reduced) {
       // M7: 180ms のクロスフェードで入れ替える
-      animate(fade, 0, { duration: 0.09 }).then(() => {
+      fadeCtl.current?.stop();
+      pendingFlip.current = target;
+      const ctl = animate(fade, 0, { duration: 0.09 });
+      fadeCtl.current = ctl;
+      ctl.then(() => {
+        if (fadeCtl.current !== ctl) return; // 中断された
         rotateY.set(target);
-        animate(fade, 1, { duration: 0.09 });
+        pendingFlip.current = null;
+        fadeCtl.current = animate(fade, 1, { duration: 0.09 });
       });
     } else {
       spin.current = animate(rotateY, target, SPRING.pop);

@@ -24,6 +24,8 @@ const FLASH_MAX_IN_WINDOW = 3;
 interface Run {
   id: number;
   flash: boolean;
+  skillName: string;
+  color: string;
 }
 
 /**
@@ -35,8 +37,8 @@ export function SkillFx({ trigger, skillName, color, reduced }: SkillFxProps) {
   const prevTrigger = useRef(trigger);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const flashTimes = useRef<number[]>([]);
-  const latest = useRef({ reduced });
-  latest.current = { reduced };
+  const latest = useRef({ reduced, skillName, color });
+  latest.current = { reduced, skillName, color };
 
   useEffect(() => {
     if (trigger === prevTrigger.current) return;
@@ -48,7 +50,12 @@ export function SkillFx({ trigger, skillName, color, reduced }: SkillFxProps) {
     const flash = !isReduced && flashTimes.current.length < FLASH_MAX_IN_WINDOW;
     if (flash) flashTimes.current.push(now);
 
-    setRun({ id: trigger, flash });
+    setRun({
+      id: trigger,
+      flash,
+      skillName: latest.current.skillName,
+      color: latest.current.color,
+    });
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setRun(null), isReduced ? REDUCED_MS : TOTAL_MS);
   }, [trigger]);
@@ -69,9 +76,9 @@ export function SkillFx({ trigger, skillName, color, reduced }: SkillFxProps) {
       className="pointer-events-none absolute inset-0 z-40 overflow-hidden"
     >
       {reduced ? (
-        <SkillCutIn name={skillName} color={color} reduced />
+        <SkillCutIn name={run.skillName} color={run.color} reduced />
       ) : (
-        <FullFx skillName={skillName} color={color} flash={run.flash} />
+        <FullFx skillName={run.skillName} color={run.color} flash={run.flash} />
       )}
     </div>
   );

@@ -68,20 +68,39 @@ if (!UA) {
 let lastRequestAt = 0;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// MediaWiki は失敗時も HTTP 200 で {"error":...} を返すことがある。それは保存・再利用しない。
+function isApiError(buf) {
+  try {
+    return Boolean(JSON.parse(buf.toString("utf8"))?.error);
+  } catch {
+    return true; // JSON として読めないものも不正とみなす
+  }
+}
+
 async function cached(key, ext, producer) {
   const file = path.join(CACHE_DIR, `${createHash("sha1").update(key).digest("hex")}.${ext}`);
-  if (existsSync(file)) return readFile(file);
+  if (existsSync(file)) {
+    const hit = await readFile(file);
+    if (ext !== "json" || !isApiError(hit)) return hit;
+    // エラー応答が混じっていたら無視して取り直す
+  }
   const wait = lastRequestAt + INTERVAL_MS - Date.now();
   if (wait > 0) await sleep(wait);
   lastRequestAt = Date.now();
   const buf = await producer();
+  if (ext === "json" && isApiError(buf)) {
+    throw new Error(`API エラー応答: ${buf.toString("utf8").slice(0, 200)}`);
+  }
   await mkdir(CACHE_DIR, { recursive: true });
   await writeFile(file, buf);
   return buf;
 }
 
 async function httpGet(url) {
-  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  const res = await fetch(url, {
+    headers: { "User-Agent": UA },
+    signal: AbortSignal.timeout(30000),
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
   return Buffer.from(await res.arrayBuffer());
 }
@@ -93,12 +112,35 @@ async function apiGet(params) {
   return JSON.parse(buf.toString("utf8"));
 }
 
-const download = (url) => cached(url, "bin", () => httpGet(url));
+// 画像のダウンロード先は https の cookierun.wiki（サブドメイン含む）と cdn.wikimg.net だけ許可する。
+function assertAllowedUrl(url) {
+  let u;
+  try {
+    u = new URL(url);
+  } catch {
+    throw new Error(`URL 不正: ${url}`);
+  }
+  const host = u.hostname.toLowerCase();
+  const ok =
+    u.protocol === "https:" &&
+    (host === "cookierun.wiki" || host.endsWith(".cookierun.wiki") || host === "cdn.wikimg.net");
+  if (!ok) throw new Error(`許可外のダウンロード先: ${url}`);
+}
+
+const download = (url) => {
+  assertAllowedUrl(url);
+  return cached(url, "bin", () => httpGet(url));
+};
 
 // ---------- wiki 問い合わせ ----------
 function pageTitleFromSourceUrl(sourceUrl) {
   const m = sourceUrl.match(/^https:\/\/cookierun\.wiki\/w\/(.+)$/);
-  return m ? decodeURIComponent(m[1]).replace(/_/g, " ") : null;
+  if (!m) return null;
+  try {
+    return decodeURIComponent(m[1]).replace(/_/g, " ");
+  } catch {
+    return null; // 不正な % エスケープ
+  }
 }
 
 async function fetchInfobox(pageTitle) {
@@ -176,18 +218,23 @@ async function findGifs(c, pageTitle) {
   const prefixes = [`Crob_${slugName}_`];
   if (c.names.en === "GingerBrave") prefixes.push("Cookie0001_"); // 例外の命名
   for (const prefix of prefixes) {
-    const data = await apiGet({
-      action: "query",
-      list: "allimages",
-      aiprefix: prefix,
-      aimime: "image/gif",
-      ailimit: "100",
-    });
-    for (const img of data?.query?.allimages ?? []) {
-      const rest = img.name.slice(prefix.length).replace(/\.gif$/i, "");
-      if (!found.has(normMotion(rest)))
-        found.set(normMotion(rest), { title: `File:${img.name}`, name: img.name });
-    }
+    let cont = {};
+    do {
+      const data = await apiGet({
+        action: "query",
+        list: "allimages",
+        aiprefix: prefix,
+        aimime: "image/gif",
+        ailimit: "100",
+        ...cont,
+      });
+      for (const img of data?.query?.allimages ?? []) {
+        const rest = img.name.slice(prefix.length).replace(/\.gif$/i, "");
+        if (!found.has(normMotion(rest)))
+          found.set(normMotion(rest), { title: `File:${img.name}`, name: img.name });
+      }
+      cont = data?.continue ?? null;
+    } while (cont);
   }
   return found;
 }
@@ -219,6 +266,14 @@ async function main() {
   const infoboxes = {};
 
   for (const c of characters) {
+    if (!/^(crk|crob)-[a-z0-9-]+$/.test(String(c.id))) {
+      missing.push({ id: String(c.id), asset: "(全素材)", reason: "id の形式が不正" });
+      continue;
+    }
+    if ((c.title === "kingdom") !== c.id.startsWith("crk-") || !MOTION_DEFS[c.title]) {
+      missing.push({ id: c.id, asset: "(全素材)", reason: "title と id の接頭辞が一致しない" });
+      continue;
+    }
     const slug = c.id.replace(/^(crk|crob)-/, "");
     const prefix = c.title === "kingdom" ? "crk" : "crob";
     const dir = path.join(OUT_DIR, prefix, slug);
@@ -273,7 +328,7 @@ async function main() {
       console.log(`  GIF 一覧の取得に失敗: ${e.message}`);
     }
     const defs = MOTION_DEFS[c.title].slice(0, MAX_MOTIONS);
-    // 優先動作が足りないときは、見つかった別の動作で最大6種まで補う
+    // MOTION_DEFS の順に最大 MAX_MOTIONS 種。足りない分は補わず、一覧に出す。
     for (const def of defs) {
       const hit = byMotion.get(normMotion(def.id));
       if (!hit) {

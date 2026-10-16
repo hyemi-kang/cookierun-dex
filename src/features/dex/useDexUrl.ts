@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { GameTitle } from "../../types/character";
 
 export type DexView = "card" | "stage";
@@ -47,13 +47,26 @@ export function useDexUrl() {
     else window.history.replaceState(null, "", url);
   }, [state]);
 
+  const setGame = useCallback(
+    (game: GameTitle) => setState((s) => ({ ...s, game, selectedId: null })),
+    [],
+  );
+  const setSelectedId = useCallback(
+    (selectedId: string | null) =>
+      setState((s) => (s.selectedId === selectedId ? s : { ...s, selectedId })),
+    [],
+  );
+  const setView = useCallback(
+    (view: DexView) => setState((s) => (s.view === view ? s : { ...s, view })),
+    [],
+  );
+
   return {
     game: state.game,
     selectedId: state.selectedId,
     view: state.view,
-    setGame: (game: GameTitle) => setState((s) => ({ ...s, game, selectedId: null })),
-    setSelectedId: (selectedId: string | null) =>
-      setState((s) => (s.selectedId === selectedId ? s : { ...s, selectedId })),
-    setView: (view: DexView) => setState((s) => (s.view === view ? s : { ...s, view })),
+    setGame,
+    setSelectedId,
+    setView,
   };
 }

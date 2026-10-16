@@ -23,6 +23,7 @@ function Card({ item, active }: { item: TimelineItem; active: boolean }) {
     <motion.li
       data-testid="timeline-card"
       data-active={active}
+      aria-hidden={active ? undefined : true}
       className="w-[280px] list-none rounded-lg max-sm:w-full border border-border bg-surface/90 p-4 shadow-md max-sm:p-3"
       initial={{ opacity: 0, y: 24 }}
       animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}

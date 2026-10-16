@@ -45,6 +45,8 @@ export function CtaSection({
         さあ、オーブンの外へ
       </h2>
       <motion.button
+        tabIndex={seen ? 0 : -1}
+        aria-hidden={seen ? undefined : true}
         type="button"
         data-testid="cta-dex"
         onClick={() => navigate("/")}
